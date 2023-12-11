@@ -4,15 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Switcher = dynamic(() => import('../components/switcher'))
-const BackButton = dynamic(() => import('../components/backButton'))
+const BackButton = dynamic(() => import('@/components/commons/backButton'))
 
 export default function AuthLogin(){
 
     useEffect(() => {
         document.documentElement.setAttribute("dir", "ltr");
-        document.documentElement.classList.add('light');
-        document.documentElement.classList.remove('dark');
+        // document.documentElement.classList.add('light'); 
+        // document.documentElement.classList.remove('dark');   
     }, []);
     
     return(
@@ -96,7 +95,7 @@ export default function AuthLogin(){
                     </div>
                 </div>
             </section>
-            <Switcher/>
+            {/* <Switcher/> */}
             <BackButton/>
         </>
     )

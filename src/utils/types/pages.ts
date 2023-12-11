@@ -6,5 +6,6 @@ export enum PAGES {
 export enum PAGES_PATH {
   HOME = '',
   PROYECTS = 'projects',
-  UPDATE_PROJECT = 'update-project'
+  UPDATE_PROJECT = 'update-project',
+  LOGIN = 'login'
 }

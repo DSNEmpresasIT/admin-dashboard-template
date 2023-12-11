@@ -9,7 +9,7 @@ export async function getAllProjects() {
     const response = await axios.get(`${BASE_URL}/projects/client/${CLIENT}`);
     return response.data;
   } catch (error) {
-    console.log(error.message)
+    throw new Error()
   }
 }
 
@@ -23,6 +23,8 @@ export async function createProject(formData: CreateProjectDto) {
 
     return response.data;
   } catch (error) {
-    console.log(error.message)
+    if (error.response.status === 401) throw new Error('Usted no está autorizado a realizar esta operación, por favor, ingrese con su cuenta nuevamente.');
+
+    throw new Error('Ha ocurrido un error en el servidor, por favor intentelo mas tarde...')
   }
 }

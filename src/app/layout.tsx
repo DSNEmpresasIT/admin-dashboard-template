@@ -3,6 +3,7 @@ import './globals.css'
 import { Nunito } from 'next/font/google'
 import './assets/css/tailwind.css'
 import './assets/css/materialdesignicons.min.css'
+import { AuthLayout } from './auth-layout'
 
 
 const nunito = Nunito ({ 
@@ -26,7 +27,9 @@ export default function RootLayout({ children }) {
             color: '#fff',
           } }} 
         />
-        {children}
+        <AuthLayout>
+          {children}
+        </AuthLayout>
       </body>
     </html>
   )

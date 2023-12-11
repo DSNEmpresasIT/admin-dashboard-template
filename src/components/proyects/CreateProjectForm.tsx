@@ -113,8 +113,8 @@ export const CreateProjectForm = ({
         setIsLoading(false)
         toast.success('Publicacion creada correctamente.')
       })
-      .catch(() => {
-        toast.error('Ha ocurrido un error en el servidor, por favor intentelo mas tarde...')
+      .catch((err) => {
+        toast.error(err.message)
         setIsLoading(false)
       }) 
   }

@@ -3,11 +3,11 @@ import React,{useEffect, useState}  from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-const Sidebar = dynamic(() => import('../components/sidebar'))
-const Topnav = dynamic(() => import('../components/topnav'))
-const Footer = dynamic(() => import('../components/footer'))
-const Switcher = dynamic(() => import('../components/switcher'))
-const Editer = dynamic(() => import('../components/editer'), { ssr: false })
+const Sidebar = dynamic(() => import('@/components/commons/sidebar'))
+const Topnav = dynamic(() => import('@/components/commons/topnav'))
+const Footer = dynamic(() => import('@/components/commons/footer'))
+const Switcher = dynamic(() => import('@/components/commons/switcher'))
+const Editer = dynamic(() => import('@/components/commons/editer'), { ssr: false })
 
 
 

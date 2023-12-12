@@ -3,18 +3,19 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-// const Sidebar = dynamic(() => import('../components/sidebar'))
-const Topnav = dynamic(() => import("../../components/commons/topnav"));
-const Footer = dynamic(() => import("../../components/commons/footer"));
+// const Sidebar = dynamic(() => import('@/components/commons/sidebar'))
+// const Topnav = dynamic(() => import("../@/components/commons/commons/topnav"));
+const Footer = dynamic(() => import("@/components/commons/footer"));
 
 import * as Icon from "react-feather";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
-import Sidebar from "../../components/commons/sidebar";
+import Sidebar from "@/components/commons/sidebar";
 import { CreateProjectForm } from "@/components/proyects/CreateProjectForm";
 import { ProjectsList } from "@/components/proyects/ProjectsList";
 import { getAllProjects } from "@/services/projects-service";
 import { Projects } from "@/utils/types/types";
+import Topnav from "@/components/commons/topnav";
 
 export default function Blog() {
   const [toggle, setToggle] = useState<boolean>(true);

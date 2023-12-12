@@ -4,6 +4,7 @@ import { Nunito } from 'next/font/google'
 import './assets/css/tailwind.css'
 import './assets/css/materialdesignicons.min.css'
 import { AuthLayout } from './auth-layout'
+import { AuthContextProvider } from '@/context/auth-context'
 
 
 const nunito = Nunito ({ 
@@ -27,9 +28,11 @@ export default function RootLayout({ children }) {
             color: '#fff',
           } }} 
         />
-        <AuthLayout>
-          {children}
-        </AuthLayout>
+        <AuthContextProvider>
+          <AuthLayout>
+            {children}
+          </AuthLayout>
+        </AuthContextProvider>
       </body>
     </html>
   )

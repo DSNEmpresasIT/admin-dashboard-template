@@ -3,15 +3,15 @@ import React,{useState, useEffect} from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-const SidebarColored = dynamic(() => import('../components/sidebar'))
-const Topnav = dynamic(() => import('../components/topnav'))
-const DataStates = dynamic(() => import('../components/dataStates'))
-const Analytics = dynamic(() => import('../components/analytics'))
-const Order = dynamic(() => import('../components/order'))
-const Chat = dynamic(() => import('../components/chat'))
-const TopProduct = dynamic(() => import('../components/topProduct'))
-const Footer = dynamic(() => import('../components/footer'))
-const Switcher = dynamic(() => import('../components/switcher'))
+const SidebarColored = dynamic(() => import('@/components/commons/sidebar'))
+const Topnav = dynamic(() => import('@/components/commons/topnav'))
+const DataStates = dynamic(() => import('@/components/commons/dataStates'))
+const Analytics = dynamic(() => import('@/components/commons/analytics'))
+const Order = dynamic(() => import('@/components/commons/order'))
+const Chat = dynamic(() => import('@/components/commons/chat'))
+const TopProduct = dynamic(() => import('@/components/commons/topProduct'))
+const Footer = dynamic(() => import('@/components/commons/footer'))
+const Switcher = dynamic(() => import('@/components/commons/switcher'))
 
 import {BiExport} from 'react-icons/bi'
 

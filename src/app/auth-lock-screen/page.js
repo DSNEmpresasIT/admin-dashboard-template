@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Switcher = dynamic(() => import('../components/switcher'))
-const BackButton = dynamic(() => import('../components/backButton'))
+const Switcher = dynamic(() => import('@/components/commons/switcher'))
+const BackButton = dynamic(() => import('@/components/commons/backButton'))
 
 export default function AuthLockScreen(){
 

@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Sidebar = dynamic(() => import('../components/sidebar'))
-const Topnav = dynamic(() => import('../components/topnav'))
-const Footer = dynamic(() => import('../components/footer'))
-const Switcher = dynamic(() => import('../components/switcher'))
+const Sidebar = dynamic(() => import('@/components/commons/sidebar'))
+const Topnav = dynamic(() => import('@/components/commons/topnav'))
+const Footer = dynamic(() => import('@/components/commons/footer'))
+const Switcher = dynamic(() => import('@/components/commons/switcher'))
 
 import SimpleBarReact from "simplebar-react";
 import 'simplebar-react/dist/simplebar.min.css';

@@ -8,6 +8,7 @@ import { encodeImageToBase64 } from "@/utils/helpers/encodeImageToBase64";
 import Datepicker from "react-tailwindcss-datepicker";
 import { createProject } from "@/services/projects-service";
 import { Projects, ProjectsTypes } from "@/utils/types/types";
+import { useAuthContext } from "@/context/auth-context";
 
 const initialDate: string = new Date().toString();
 
@@ -48,7 +49,8 @@ export const CreateProjectForm = ({
 }) => {
   const [formData, setFormData] = useState<FormData>(initialState);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { state } = useAuthContext();
+  
   function handleChangeImage(event) {
     if (event.target.files && event.target.files.length !== 0) {
       encodeImageToBase64(event.target.files[0], (base64: string) => {
@@ -103,7 +105,7 @@ export const CreateProjectForm = ({
           : undefined,
     };
 
-    createProject(form)
+    createProject(state.user.clientName, state.token, form)
       .then((response: Projects) => {
         setProjectsData([
           ...projectsData,

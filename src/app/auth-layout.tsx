@@ -31,9 +31,10 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         dispatch({
           type: AuthContextTypes.LOGIN,
           payload: {
-            clientName: response.user.clientName,
+            clientName: response.user.clientName.toLowerCase(),
             email: response.user.email,
             token: authToken,
+            userName: response.user.userName
           },
         });
                 

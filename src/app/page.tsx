@@ -35,7 +35,7 @@ export default function Index() {
             <div className="layout-specing">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h5 className="text-xl font-bold">Hola, {state.user.clientName}</h5>
+                        <h5 className="text-xl font-bold">Hola, {state.user.userName}</h5>
                         <h6 className="text-slate-400 font-semibold">Bienvenido!</h6>
                     </div>
                 </div>

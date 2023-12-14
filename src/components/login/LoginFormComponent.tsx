@@ -37,12 +37,14 @@ export const LoginFormComponent = () => {
         } else {
           window.sessionStorage.setItem('auth-token', res.token)
         }
-        
+
         dispatch({
           type: AuthContextTypes.LOGIN,
           payload: {
             email: res.user.email,
-            clientName: res.user.clientName
+            clientName: res.user.clientName,
+            token: res.token,
+            userName: res.user.userName
           }
         });
 

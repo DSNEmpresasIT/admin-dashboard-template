@@ -16,17 +16,22 @@ import { ProjectsList } from "@/components/proyects/ProjectsList";
 import { getAllProjects } from "@/services/projects-service";
 import { Projects } from "@/utils/types/types";
 import Topnav from "@/components/commons/topnav";
+import { useAuthContext } from "@/context/auth-context";
+import toast from "react-hot-toast";
 
 export default function Blog() {
   const [toggle, setToggle] = useState<boolean>(true);
   const [modal, setModal] = useState<boolean>(false);
   const [projectsData, setProjectsData] = useState<Projects[]>();
+  const { state } = useAuthContext();
 
   useEffect(() => {
-    getAllProjects()
+    if (state.user.clientName) {
+      getAllProjects(state.user.clientName.toLowerCase())
       .then((response) => setProjectsData(response.projects))
-      .catch((err) => console.log(err));
-  }, []);
+      .catch(() => toast.error('Ha ocurrido un error con la base de datos'));
+    }
+  }, [state.user]);
 
   useEffect(() => {
     if (modal) {

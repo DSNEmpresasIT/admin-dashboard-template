@@ -40,7 +40,7 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
                   pathname: PAGES_PATH.UPDATE_PROJECT,
                   query: { projectId: item._id },
                 }}
-                className="title h5 text-lg font-medium hover:text-indigo-600 duration-500"
+                className="title h5 text-lg font-medium hover:text-indigo-600 duration-500 max-h-[50px] overflow-hidden"
               >
                 {item.title}
               </Link>
@@ -48,7 +48,7 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
                 <span className="text-gray-500 capitalize">{item.type}</span>
                 <span className="text-gray-500">{item.project_date}</span>
               </div>
-              <p className="text-slate-400 mt-3">{item.description}</p>
+              <p className="text-slate-400 mt-3 max-h-[50px] overflow-hidden whitespace-nowrap text-ellipsis">{item.description}</p>
 
               <div className="mt-4">
                 <Link

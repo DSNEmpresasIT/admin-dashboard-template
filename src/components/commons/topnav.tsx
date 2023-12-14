@@ -291,7 +291,7 @@ export default function Topnav({ setToggle, toggle }) {
                   />
                 </span>
                 <span className="font-semibold text-[16px] ms-1 sm:inline-block hidden">
-                  {state.user.clientName}
+                  {state.user.userName}
                 </span>
               </button>
               <div

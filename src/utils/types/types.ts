@@ -35,6 +35,7 @@ export interface UserPayload {
   clientName: string;
   email: string;
   token?: string;
+  userName: string;
 }
  
 export interface AuthContextState {

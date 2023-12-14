@@ -2,23 +2,25 @@ import { CreateProjectDto } from '@/utils/types/dto/dto';
 import axios from 'axios';
 
 const BASE_URL = process.env.API_BASE_URL;
-const CLIENT = process.env.CLIENT
 
-export async function getAllProjects() {
+export async function getAllProjects(clientName: string) {
   try {
-    const response = await axios.get(`${BASE_URL}/projects/client/${CLIENT}`);
+    const response = await axios.get(`${BASE_URL}/projects/client/${clientName}`);
     return response.data;
   } catch (error) {
     throw new Error()
   }
 }
 
-export async function createProject(formData: CreateProjectDto) {
+export async function createProject(clientName: string, token: string,formData: CreateProjectDto) {
   try {
     const response = await axios({
       method: 'POST',
-      baseURL: `${BASE_URL}/projects/create/${CLIENT}`,
+      baseURL: `${BASE_URL}/projects/create/${clientName}`,
       data: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`       
+      }
     })
 
     return response.data;

@@ -48,3 +48,8 @@ export interface AuthContextAction {
   type: AuthContextTypes;
   payload: UserPayload; 
 }
+
+export interface ProjectTypesCMS {
+  label: string;
+  value: string;
+}

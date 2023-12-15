@@ -1,7 +1,7 @@
 import { FormData } from "@/utils/types/types";
 import axios from "axios";
 
-const BASE_URL = process.env.API_BASE_URL;
+const BASE_URL = process.env.ENVIROMENT === 'development' ? process.env.API_BASE_URL_DEVELOPMENT : process.env.API_BASE_URL_PRODUCTION;
 
 export async function loginByToken(token: string) {
   try {

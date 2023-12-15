@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Datepicker from "react-tailwindcss-datepicker"; 
+import Datepicker from "react-tailwindcss-datepicker";
 
 import { AiOutlineClose } from "react-icons/ai";
 
 import Sidebar from "@/components/commons/sidebar";
 import Topnav from "@/components/commons/topnav";
+import { useSearchParams } from "next/navigation";
+import { getProjectById } from "@/services/projects-service";
 
 function encodeImageFileAsURL(file, callback) {
   const reader = new FileReader();
@@ -23,26 +25,46 @@ const initialState = {
   type: "",
   projectClient: "",
   date: "",
-  image_1: null,
-  image_2: null,
-  image_3: null,
-  image_4: null,
+  project_date: "",
+  imageUrl: [null, null, null, null],
 };
 
 const Page = () => {
+  const projectId = useSearchParams().get("projectId");
   const [toggle, setToggle] = useState(true);
-  const [modal, setModal] = useState(false);
   const [uploadFile, setUpoadFile] = useState();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState<any>(initialState);
 
-  function handleChange(event) {
+  function handleChangeImage(event) {
     if (event.target.files && event.target.files.length !== 0) {
       encodeImageFileAsURL(event.target.files[0], setUpoadFile);
     }
   }
 
+  const handleSubmit = (e) => {};
+
+  const handleInputChange = (e) => {};
+
   useEffect(() => {
     document.documentElement.setAttribute("dir", "ltr");
+  }, []);
+
+  useEffect(() => {
+    getProjectById(projectId).then((response) => {
+      setFormData({
+        title: response.title,
+        description: response.description,
+        projectClient: response.projectClient ?? null,
+        type: response.type,
+        project_date: response.project_date ?? new Date().toString(),
+        imageUrl: [
+          response.imageUrl[0] ?? null,
+          response.imageUrl[1] ?? null,
+          response.imageUrl[2] ?? null,
+          response.imageUrl[3] ?? null,
+        ],
+      });
+    });
   }, []);
 
   return (
@@ -55,11 +77,6 @@ const Page = () => {
             <div className="p-8">
               <div className="grid grid-cols-2 bg-slate-900 gap-5 p-8">
                 <div>
-                  <p className="font-semibold mb-4">
-                    Upload your blog image here, Please click Upload Image
-                    Button.
-                  </p>
-
                   {uploadFile ? (
                     <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
                       <Image
@@ -75,9 +92,15 @@ const Page = () => {
                       />
                     </div>
                   ) : (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
+                    <>
+                      <p className="font-semibold mb-4">
+                        Upload your blog image here, Please click Upload Image
+                        Button.
+                      </p>
+                      <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
+                        Soporta JPG y PNG
+                      </div>
+                    </>
                   )}
 
                   <input
@@ -86,7 +109,7 @@ const Page = () => {
                     name="input-file"
                     accept="image/*"
                     hidden
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChangeImage(e)}
                   />
                   <label
                     className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
@@ -127,7 +150,7 @@ const Page = () => {
                     name="input-file"
                     accept="image/*"
                     hidden
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChangeImage(e)}
                   />
                   <label
                     className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
@@ -168,7 +191,7 @@ const Page = () => {
                     name="input-file"
                     accept="image/*"
                     hidden
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChangeImage(e)}
                   />
                   <label
                     className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
@@ -209,7 +232,7 @@ const Page = () => {
                     name="input-file"
                     accept="image/*"
                     hidden
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChangeImage(e)}
                   />
                   <label
                     className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
@@ -265,11 +288,10 @@ const Page = () => {
                     <label className="font-semibold">
                       Fecha <span className="text-red-600">*</span>
                     </label>
-                    <Datepicker 
-                      asSingle={true} 
-                      value={{ startDate: new Date(), endDate: new Date(), }} 
+                    <Datepicker
+                      asSingle={true}
+                      value={{ startDate: new Date(), endDate: new Date() }}
                       onChange={(value) => console.log(value)}
-
                       inputClassName="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
                     />
                   </div>

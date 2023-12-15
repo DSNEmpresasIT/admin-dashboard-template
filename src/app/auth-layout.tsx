@@ -28,10 +28,11 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           window.localStorage.removeItem("auth-token");
           return setIsLoading(false);
         }
+
         dispatch({
           type: AuthContextTypes.LOGIN,
           payload: {
-            clientName: response.user.clientName.toLowerCase(),
+            clientName: response.user.clientName,
             email: response.user.email,
             token: authToken,
             userName: response.user.userName

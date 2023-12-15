@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
@@ -7,8 +7,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { encodeImageToBase64 } from "@/utils/helpers/encodeImageToBase64";
 import Datepicker from "react-tailwindcss-datepicker";
 import { createProject } from "@/services/projects-service";
-import { Projects, ProjectsTypes } from "@/utils/types/types";
+import { ProjectTypesCMS, Projects, ProjectsTypes } from "@/utils/types/types";
 import { useAuthContext } from "@/context/auth-context";
+import { getProjectTypes } from "@/services/cms-services";
 
 const initialDate: string = new Date().toString();
 
@@ -40,17 +41,18 @@ export const CreateProjectForm = ({
   setModal,
   modal,
   projectsData,
-  setProjectsData
+  setProjectsData,
 }: {
   setModal: Dispatch<SetStateAction<boolean>>;
   modal: boolean;
-  projectsData: Projects[], 
-  setProjectsData: Dispatch<SetStateAction<Projects[]>>,
+  projectsData: Projects[];
+  setProjectsData: Dispatch<SetStateAction<Projects[]>>;
 }) => {
   const [formData, setFormData] = useState<FormData>(initialState);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [projectTypes, setProjectTypes] = useState<ProjectTypesCMS[]>();
   const { state } = useAuthContext();
-  
+
   function handleChangeImage(event) {
     if (event.target.files && event.target.files.length !== 0) {
       encodeImageToBase64(event.target.files[0], (base64: string) => {
@@ -78,7 +80,7 @@ export const CreateProjectForm = ({
       formData.description.length < 3 ||
       formData.type.length < 3
     ) {
-      setIsLoading(false)
+      setIsLoading(false);
       return toast.error('Los campos con "*" son obligatorios');
     }
 
@@ -91,7 +93,9 @@ export const CreateProjectForm = ({
 
     if (!imageUrl.length) {
       setIsLoading(false);
-      return toast.error('El proyecto debe contenter al menos una foto ilustrativa.')
+      return toast.error(
+        "El proyecto debe contenter al menos una foto ilustrativa."
+      );
     }
 
     const form: CreateProjectDto = {
@@ -107,23 +111,28 @@ export const CreateProjectForm = ({
 
     createProject(state.user.clientName, state.token, form)
       .then((response: Projects) => {
-        setProjectsData([
-          ...projectsData,
-          response
-        ])
-        setModal(!modal)
-        setIsLoading(false)
-        toast.success('Publicacion creada correctamente.')
+        setProjectsData([...projectsData, response]);
+        setModal(!modal);
+        setIsLoading(false);
+        toast.success("Publicacion creada correctamente.");
       })
       .catch((err) => {
-        toast.error(err.message)
-        setIsLoading(false)
-      }) 
+        toast.error(err.message);
+        setIsLoading(false);
+      });
   }
+
+  useEffect(() => {
+    if (state.user?.clientName?.length && state.token?.length) {
+      getProjectTypes(state.user.clientName, state.token)
+        .then((response) => setProjectTypes(response.project_types))
+        .catch((err) => toast.error(err));
+    }
+  }, [state]);
 
   return (
     <div className="relative w-[85vw] h-full flex items-center justify-center pt-8">
-      { isLoading && <span>Spinner todo copado...</span> }
+      {isLoading && <span>Spinner todo copado...</span>}
       {!isLoading && (
         <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg shadow dark:shadow-gray-700">
           <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
@@ -346,15 +355,18 @@ export const CreateProjectForm = ({
                     Tipo de proyecto
                     <span className="text-red-600">*</span>
                   </label>
-                  <input
-                    name="type"
-                    value={formData.type ?? ""}
-                    onChange={handleInputChange}
-                    id="type"
-                    type="text"
+                  <select
                     className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                    placeholder="Tipo de proyecto:"
-                  />
+                    value={formData.type}
+                    name="type"
+                    onChange={handleInputChange}
+                  >
+                    {
+                      projectTypes && projectTypes?.map(type => (
+                        <option key={`${type.value}-option-project-type`} value={type.value}>{type.label}</option>
+                      ))
+                    }
+                  </select>
                 </div>
 
                 <div className="col-span-6">

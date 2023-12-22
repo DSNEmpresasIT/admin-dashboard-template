@@ -1,12 +1,12 @@
-import { ProjectsTypes } from "../types";
+import { ImageUrl } from "../types";
 
 export interface CreateProjectDto {
   title: string;
-  type: ProjectsTypes;
+  type: string | undefined;
   description: string;
   projectClient?: string;
   project_date?: string;
-  imageUrl: string[]
+  imageUrl: string[] | ImageUrl[];
 }
 
 export interface UpdateProjectDto extends CreateProjectDto {}

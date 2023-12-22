@@ -7,6 +7,7 @@ import { useAuthContext } from "@/context/auth-context";
 import { AuthContextTypes } from "@/utils/types/types";
 import { loginByToken } from "@/services/auth-services";
 import toast from "react-hot-toast";
+import { LoaderComponent } from "@/components/commons/LoaderComponent";
 
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -61,12 +62,9 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [pathname, state.isAuth, isLoading]);
 
-  if (isLoading) {
-    return <span>Autenticando...</span>
-  }
-
   return (
     <>
+      <LoaderComponent conditional={isLoading} className="w-screen h-screen flex items-center justify-center" />
       { !isLoading && state.isAuth && (children) }
       { !isLoading && !state.isAuth && (<AuthLogin />) }
     </>

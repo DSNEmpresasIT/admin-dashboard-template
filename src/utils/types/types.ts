@@ -1,15 +1,10 @@
-
-export enum ProjectsTypes {
-   RESIDENCIAL = 'residencial',
-}
-
 export interface Projects {
   _id: string;
   clientName: string;
   imageUrl: ImageUrl[];
   title: string;
   description: string;
-  type: ProjectsTypes;
+  type: string | undefined;
   projectClient: string;
   project_date: string;
 }
@@ -19,7 +14,7 @@ export interface ImageUrl {
   id: string;
 }
 
-export interface FormData {
+export interface LoginFormData {
   email: string;
   password: string;
 }
@@ -52,4 +47,14 @@ export interface AuthContextAction {
 export interface ProjectTypesCMS {
   label: string;
   value: string;
+}
+
+
+export interface ProjectFormData {
+  title: string;
+  description: string;
+  project_date: string;
+  projectClient: string;
+  type: string | undefined;
+  imageUrl: string[] | null[] | ImageUrl[];
 }

@@ -4,37 +4,23 @@ import Image from "next/image";
 
 import { CreateProjectDto } from "@/utils/types/dto/dto";
 import { AiOutlineClose } from "react-icons/ai";
-import { encodeImageToBase64 } from "@/utils/helpers/encodeImageToBase64";
 import Datepicker from "react-tailwindcss-datepicker";
 import { createProject } from "@/services/projects-service";
-import { ProjectTypesCMS, Projects, ProjectsTypes } from "@/utils/types/types";
+import { ProjectFormData, ProjectTypesCMS, Projects } from "@/utils/types/types";
 import { useAuthContext } from "@/context/auth-context";
 import { getProjectTypes } from "@/services/cms-services";
+import { ImageInputComponent } from "../commons/ImageInputComponent";
+import { LoaderComponent } from "../commons/LoaderComponent";
 
 const initialDate: string = new Date().toString();
 
-interface FormData {
-  title: string;
-  description: string;
-  project_date: string;
-  projectClient: string;
-  type: ProjectsTypes | undefined;
-  image_1: string | null;
-  image_2: string | null;
-  image_3: string | null;
-  image_4: string | null;
-}
-
-const initialState: FormData = {
+const initialState: ProjectFormData = {
   title: "",
   description: "",
   project_date: initialDate,
   projectClient: "",
-  type: ProjectsTypes.RESIDENCIAL,
-  image_1: null,
-  image_2: null,
-  image_3: null,
-  image_4: null,
+  type: undefined,
+  imageUrl: [null, null, null, null]
 };
 
 export const CreateProjectForm = ({
@@ -48,21 +34,10 @@ export const CreateProjectForm = ({
   projectsData: Projects[];
   setProjectsData: Dispatch<SetStateAction<Projects[]>>;
 }) => {
-  const [formData, setFormData] = useState<FormData>(initialState);
+  const [formData, setFormData] = useState<ProjectFormData>(initialState);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projectTypes, setProjectTypes] = useState<ProjectTypesCMS[]>();
   const { state } = useAuthContext();
-
-  function handleChangeImage(event) {
-    if (event.target.files && event.target.files.length !== 0) {
-      encodeImageToBase64(event.target.files[0], (base64: string) => {
-        setFormData({
-          ...formData,
-          [event.target.name]: base64,
-        });
-      });
-    }
-  }
 
   function handleInputChange(e) {
     const target = e.target;
@@ -77,32 +52,17 @@ export const CreateProjectForm = ({
     setIsLoading(true);
     if (
       formData.title.length < 3 ||
-      formData.description.length < 3 ||
-      formData.type.length < 3
+      formData.description.length < 3
     ) {
       setIsLoading(false);
       return toast.error('Los campos con "*" son obligatorios');
-    }
-
-    const imageUrl = [];
-    for (let i = 0; i < 4; i++) {
-      if (formData[`image_${i + 1}`] !== null) {
-        imageUrl.push(formData[`image_${i + 1}`]);
-      }
-    }
-
-    if (!imageUrl.length) {
-      setIsLoading(false);
-      return toast.error(
-        "El proyecto debe contenter al menos una foto ilustrativa."
-      );
     }
 
     const form: CreateProjectDto = {
       title: formData.title,
       description: formData.description,
       type: formData.type,
-      imageUrl,
+      imageUrl: formData.imageUrl,
       project_date:
         formData.project_date !== initialDate
           ? formData.project_date
@@ -125,14 +85,16 @@ export const CreateProjectForm = ({
   useEffect(() => {
     if (state.user?.clientName?.length && state.token?.length) {
       getProjectTypes(state.user.clientName, state.token)
-        .then((response) => setProjectTypes(response.project_types))
-        .catch((err) => toast.error(err));
+        .then((response) => {
+          setProjectTypes(response.project_types ?? null);
+        })
+        .catch((err) => toast.error(err.message));
     }
   }, [state]);
 
   return (
     <div className="relative w-[85vw] h-full flex items-center justify-center pt-8">
-      {isLoading && <span>Spinner todo copado...</span>}
+      <LoaderComponent conditional={isLoading} />
       {!isLoading && (
         <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg shadow dark:shadow-gray-700">
           <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
@@ -147,175 +109,11 @@ export const CreateProjectForm = ({
           </div>
           <div className="p-4">
             <div className="grid grid-cols-4 gap-3">
-              <div>
-                {formData.image_1 ? (
-                  <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                    <Image
-                      src={formData.image_1}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      placeholder="blur"
-                      blurDataURL={formData.image_1}
-                      style={{ width: "100%", height: "auto" }}
-                      alt=""
-                      className="preview-content"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <p className="font-semibold mb-4">
-                      Upload your blog image here, Please click Upload Image
-                      Button.
-                    </p>
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  </>
-                )}
-
-                <input
-                  type="file"
-                  id="input-file_1"
-                  name="image_1"
-                  accept="image/*"
-                  hidden
-                  onChange={(e) => handleChangeImage(e)}
-                />
-                <label
-                  className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                  htmlFor="input-file_1"
-                >
-                  Subir Imagen
-                </label>
-              </div>
-              <div>
-                {formData.image_2 ? (
-                  <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                    <Image
-                      src={formData.image_2}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      placeholder="blur"
-                      blurDataURL={formData.image_2}
-                      style={{ width: "100%", height: "auto" }}
-                      alt=""
-                      className="preview-content"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <p className="font-semibold mb-4">
-                      Upload your blog image here, Please click Upload Image
-                      Button.
-                    </p>
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  </>
-                )}
-
-                <input
-                  type="file"
-                  id="input-file_2"
-                  name="image_2"
-                  accept="image/*"
-                  hidden
-                  onChange={(e) => handleChangeImage(e)}
-                />
-                <label
-                  className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                  htmlFor="input-file_2"
-                >
-                  Subir Imagen
-                </label>
-              </div>
-              <div>
-                {formData.image_3 ? (
-                  <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                    <Image
-                      src={formData.image_3}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      placeholder="blur"
-                      blurDataURL={formData.image_3}
-                      style={{ width: "100%", height: "auto" }}
-                      alt=""
-                      className="preview-content"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <p className="font-semibold mb-4">
-                      Upload your blog image here, Please click Upload Image
-                      Button.
-                    </p>
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  </>
-                )}
-
-                <input
-                  type="file"
-                  id="input-file_3"
-                  name="image_3"
-                  accept="image/*"
-                  hidden
-                  onChange={(e) => handleChangeImage(e)}
-                />
-                <label
-                  className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                  htmlFor="input-file_3"
-                >
-                  Subir Imagen
-                </label>
-              </div>
-              <div>
-                {formData.image_4 ? (
-                  <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                    <Image
-                      src={formData.image_4}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      placeholder="blur"
-                      blurDataURL={formData.image_4}
-                      style={{ width: "100%", height: "auto" }}
-                      alt=""
-                      className="preview-content"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    {" "}
-                    <p className="font-semibold mb-4">
-                      Upload your blog image here, Please click Upload Image
-                      Button.
-                    </p>
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  </>
-                )}
-
-                <input
-                  type="file"
-                  id="input-file_4"
-                  name="image_4"
-                  accept="image/*"
-                  hidden
-                  onChange={(e) => handleChangeImage(e)}
-                />
-                <label
-                  className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                  htmlFor="input-file_4"
-                >
-                  Subir Imagen
-                </label>
-              </div>
+              {
+                formData.imageUrl.map((_, index) => (
+                  <ImageInputComponent formData={formData} setFormData={setFormData} index={index} key={`${index}-image-input-key`} />
+                ))
+              }          
             </div>
 
             <form onSubmit={handleSubmitForm} className="mt-4">
@@ -337,7 +135,7 @@ export const CreateProjectForm = ({
 
                 <div className="col-span-6">
                   <label className="font-semibold">
-                    Cliente {/*<span className="text-red-600">*</span>*/}
+                    Cliente <span className="text-red-600">*</span>
                   </label>
                   <input
                     name="projectClient"
@@ -350,24 +148,29 @@ export const CreateProjectForm = ({
                   />
                 </div>
 
-                <div className="col-span-6">
-                  <label className="font-semibold">
-                    Tipo de proyecto
-                    <span className="text-red-600">*</span>
-                  </label>
-                  <select
-                    className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                    value={formData.type}
-                    name="type"
-                    onChange={handleInputChange}
-                  >
-                    {
-                      projectTypes && projectTypes?.map(type => (
-                        <option key={`${type.value}-option-project-type`} value={type.value}>{type.label}</option>
-                      ))
-                    }
-                  </select>
-                </div>
+                {projectTypes && (
+                  <div className="col-span-6">
+                    <label className="font-semibold">
+                      Tipo de proyecto
+                      <span className="text-red-600">*</span>
+                    </label>
+                    <select
+                      className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
+                      value={formData.type}
+                      name="type"
+                      onChange={handleInputChange}
+                    >
+                      {projectTypes?.map((type) => (
+                        <option
+                          key={`${type.value}-option-project-type`}
+                          value={type.value}
+                        >
+                          {type.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
                 <div className="col-span-6">
                   <label className="font-semibold">

@@ -14,6 +14,6 @@ export async function getProjectTypes(clientName: string, token: string) {
 
     return response.data
   } catch (error) {
-    throw new Error('Ha ocurrido un error con la base de datos, por favor, intentelo mas tarde.')
+    throw new Error(error.response.data.message)
   }
 }

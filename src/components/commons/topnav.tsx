@@ -59,43 +59,13 @@ export default function Topnav({ setToggle, toggle }) {
       <div className="top-header">
         <div className="header-bar flex justify-between">
           <div className="flex items-center space-x-1">
-            <Link href="#" className="xl:hidden block me-2">
-              <Image
-                src="/images/logo-icon-32.png"
-                width={32}
-                height={32}
-                className="md:hidden block"
-                alt=""
-              />
-              <span className="md:block hidden">
-                <Image
-                  src="/images/logo-dark.png"
-                  width={138}
-                  height={24}
-                  placeholder="blur"
-                  blurDataURL="/images/logo-dark.png"
-                  className="inline-block dark:hidden"
-                  alt=""
-                />
-                <Image
-                  src="/images/logo-light.png"
-                  width={138}
-                  height={24}
-                  placeholder="blur"
-                  blurDataURL="/images/logo-light.png"
-                  className="hidden dark:inline-block"
-                  alt=""
-                />
-              </span>
-            </Link>
-
-            <Link
+            <a
               id="close-sidebar"
-              className="h-8 w-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-full"
-              href="#"
+              className="h-8 w-8 cursor-pointer inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-full"
+              type="button"
             >
               <Icon.Menu className="h-4 w-4" onClick={toggleHandler} />
-            </Link>
+            </a>
 
             {/* <div className="ps-1.5">
                             <div className="form-icon relative sm:block hidden">

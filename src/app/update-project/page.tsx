@@ -8,42 +8,44 @@ import { AiOutlineClose } from "react-icons/ai";
 import Sidebar from "@/components/commons/sidebar";
 import Topnav from "@/components/commons/topnav";
 import { useSearchParams } from "next/navigation";
-import { getProjectById } from "@/services/projects-service";
+import { getProjectById, updateProject } from "@/services/projects-service";
+import { ImageUrl, ProjectFormData } from "@/utils/types/types";
+import { ImageInputComponent } from "@/components/commons/ImageInputComponent";
+import { useAuthContext } from "@/context/auth-context";
+import toast from "react-hot-toast";
 
-function encodeImageFileAsURL(file, callback) {
-  const reader = new FileReader();
-  reader.onloadend = function () {
-    callback(reader.result);
-  };
-  reader.readAsDataURL(file);
-}
-
-const initialState = {
-  clientName: process.env.CLIENT,
+const initialState: ProjectFormData = {
   title: "",
   description: "",
-  type: "",
+  type: undefined,
   projectClient: "",
-  date: "",
-  project_date: "",
+  project_date: new Date().toString(),
   imageUrl: [null, null, null, null],
 };
 
 const Page = () => {
   const projectId = useSearchParams().get("projectId");
+  const { state } = useAuthContext();
   const [toggle, setToggle] = useState(true);
-  const [uploadFile, setUpoadFile] = useState();
-  const [formData, setFormData] = useState<any>(initialState);
+  const [formData, setFormData] = useState<ProjectFormData>(initialState);
 
-  function handleChangeImage(event) {
-    if (event.target.files && event.target.files.length !== 0) {
-      encodeImageFileAsURL(event.target.files[0], setUpoadFile);
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const requestBody = {
+      ...formData,
+      clientName: state.user.clientName
     }
-  }
+    updateProject(projectId, state.token, requestBody)
+      .then(() =>toast.success('Proyecto actualizado exitorsamente'))
+      .catch(() => toast.error('Ha habido un problema, inténtelo más tarde'))
+  };
 
-  const handleSubmit = (e) => {};
-
-  const handleInputChange = (e) => {};
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("dir", "ltr");
@@ -54,7 +56,7 @@ const Page = () => {
       setFormData({
         title: response.title,
         description: response.description,
-        projectClient: response.projectClient ?? null,
+        projectClient: response.projectClient ?? '',
         type: response.type,
         project_date: response.project_date ?? new Date().toString(),
         imageUrl: [
@@ -76,183 +78,25 @@ const Page = () => {
           <div className="relative h-full bg-white dark:bg-slate-800 rounded-lg pt-[10vh]">
             <div className="p-8">
               <div className="grid grid-cols-2 bg-slate-900 gap-5 p-8">
-                <div>
-                  {uploadFile ? (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      <Image
-                        src={uploadFile}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        placeholder="blur"
-                        blurDataURL={uploadFile}
-                        style={{ width: "380px", height: "auto" }}
-                        alt=""
-                        className="preview-content"
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      <p className="font-semibold mb-4">
-                        Upload your blog image here, Please click Upload Image
-                        Button.
-                      </p>
-                      <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                        Soporta JPG y PNG
-                      </div>
-                    </>
-                  )}
-
-                  <input
-                    type="file"
-                    id="input-file"
-                    name="input-file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <label
-                    className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                    htmlFor="input-file"
-                  >
-                    Subir Imagen
-                  </label>
-                </div>
-                <div>
-                  <p className="font-semibold mb-4">
-                    Upload your blog image here, Please click Upload Image
-                    Button.
-                  </p>
-
-                  {uploadFile ? (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      <Image
-                        src={uploadFile}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        placeholder="blur"
-                        blurDataURL={uploadFile}
-                        style={{ width: "380px", height: "auto" }}
-                        alt=""
-                        className="preview-content"
-                      />
-                    </div>
-                  ) : (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  )}
-
-                  <input
-                    type="file"
-                    id="input-file"
-                    name="input-file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <label
-                    className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                    htmlFor="input-file"
-                  >
-                    Subir Imagen
-                  </label>
-                </div>
-                <div>
-                  <p className="font-semibold mb-4">
-                    Upload your blog image here, Please click Upload Image
-                    Button.
-                  </p>
-
-                  {uploadFile ? (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      <Image
-                        src={uploadFile}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        placeholder="blur"
-                        blurDataURL={uploadFile}
-                        style={{ width: "380px", height: "auto" }}
-                        alt=""
-                        className="preview-content"
-                      />
-                    </div>
-                  ) : (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  )}
-
-                  <input
-                    type="file"
-                    id="input-file"
-                    name="input-file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <label
-                    className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                    htmlFor="input-file"
-                  >
-                    Subir Imagen
-                  </label>
-                </div>
-                <div>
-                  <p className="font-semibold mb-4">
-                    Upload your blog image here, Please click Upload Image
-                    Button.
-                  </p>
-
-                  {uploadFile ? (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      <Image
-                        src={uploadFile}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        placeholder="blur"
-                        blurDataURL={uploadFile}
-                        style={{ width: "380px", height: "auto" }}
-                        alt=""
-                        className="preview-content"
-                      />
-                    </div>
-                  ) : (
-                    <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
-                      Soporta JPG y PNG
-                    </div>
-                  )}
-
-                  <input
-                    type="file"
-                    id="input-file"
-                    name="input-file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <label
-                    className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
-                    htmlFor="input-file"
-                  >
-                    Subir Imagen
-                  </label>
-                </div>
+                {
+                  formData?.imageUrl.map((image: ImageUrl | null | string, index: number) => (
+                    <ImageInputComponent formData={formData} index={index} key={`${index}-update-image-input-key`} setFormData={setFormData}/>
+                  ))
+                }
               </div>
 
-              <form className="p-5 bg-slate-900">
+              <form onSubmit={handleSubmit} className="p-5 bg-slate-900">
                 <div className="grid grid-cols-12 gap-3">
                   <div className="col-span-6">
                     <label className="font-semibold">
                       Título<span className="text-red-600">*</span>
                     </label>
                     <input
-                      name="name"
-                      id="name"
+                      name="title"
+                      id="title"
                       type="text"
+                      onChange={handleInputChange}
+                      value={formData.title}
                       className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
                       placeholder="Title :"
                     />
@@ -263,26 +107,34 @@ const Page = () => {
                       Cliente <span className="text-red-600">*</span>
                     </label>
                     <input
-                      name="name"
-                      id="name"
+                      name="client"
+                      id="client"
                       type="text"
+                      onChange={handleInputChange}
+                      value={formData.projectClient}
                       className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                      placeholder="Title :"
+                      placeholder="Cliente:"
                     />
                   </div>
 
-                  <div className="col-span-6">
-                    <label className="font-semibold">
-                      Tipo <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      name="name"
-                      id="name"
-                      type="text"
-                      className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                      placeholder="Title :"
-                    />
-                  </div>
+                  {
+                    formData.type && (
+                      <div className="col-span-6">
+                        <label className="font-semibold">
+                          Tipo <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          name="type"
+                          id="type"
+                          type="text"
+                          onChange={handleInputChange}
+                          value={formData.type}
+                          className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
+                          placeholder="Title :"
+                        />
+                      </div>
+                    )
+                  }
 
                   <div className="col-span-6">
                     <label className="font-semibold">
@@ -290,8 +142,8 @@ const Page = () => {
                     </label>
                     <Datepicker
                       asSingle={true}
-                      value={{ startDate: new Date(), endDate: new Date() }}
-                      onChange={(value) => console.log(value)}
+                      value={{ startDate: formData.project_date, endDate: formData.project_date }}
+                      onChange={(value) => setFormData({ ...formData, ['project_date']: value.toString() })}
                       inputClassName="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
                     />
                   </div>
@@ -299,10 +151,12 @@ const Page = () => {
                   <div className="col-span-12">
                     <label className="font-semibold"> Descripción: </label>
                     <textarea
-                      name="comments"
-                      id="comments"
+                      name="description"
+                      id="description"
+                      onChange={handleInputChange}
+                      value={formData.description}
                       className="form-input w-full py-2 px-3 h-24 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                      placeholder="Description :"
+                      placeholder="Descripcion:"
                     ></textarea>
                   </div>
 

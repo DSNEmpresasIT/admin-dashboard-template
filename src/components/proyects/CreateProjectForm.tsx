@@ -58,11 +58,17 @@ export const CreateProjectForm = ({
       return toast.error('Los campos con "*" son obligatorios');
     }
 
+    if (!formData.imageUrl[0]) {
+      setIsLoading(false)
+      return toast.error('Se requiere una imagen como minimo')
+    }
+
     const form: CreateProjectDto = {
       title: formData.title,
       description: formData.description,
       type: formData.type,
       imageUrl: formData.imageUrl,
+      projectClient: formData.projectClient,
       project_date:
         formData.project_date !== initialDate
           ? formData.project_date
@@ -88,7 +94,7 @@ export const CreateProjectForm = ({
         .then((response) => {
           setProjectTypes(response.project_types ?? null);
         })
-        .catch((err) => toast.error(err.message));
+        .catch((err) => console.log('No types founded'));
     }
   }, [state]);
 
@@ -211,7 +217,7 @@ export const CreateProjectForm = ({
                     type="submit"
                     className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md"
                   >
-                    Create Blog
+                    Crear projecto
                   </button>
                 </div>
               </div>

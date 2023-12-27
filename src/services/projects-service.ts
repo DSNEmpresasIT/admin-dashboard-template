@@ -26,7 +26,7 @@ export async function createProject(clientName: string, token: string,formData: 
     return response.data;
   } catch (error) {
     if (error.response.status === 401) throw new Error('Usted no está autorizado a realizar esta operación, por favor, ingrese con su cuenta nuevamente.');
-
+    console.log(error)
     throw new Error('Ha ocurrido un error en el servidor, por favor intentelo mas tarde...')
   }
 }

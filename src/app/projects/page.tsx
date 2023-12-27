@@ -28,7 +28,7 @@ export default function Blog() {
   useEffect(() => {
     if (state.user.clientName) {
       getAllProjects(state.user.clientName.toLowerCase())
-      .then((response) => setProjectsData(response.projects))
+      .then((response) => (setProjectsData(response.projects), console.log(response)))
       .catch(() => toast.error('Ha ocurrido un error con la base de datos'));
     }
   }, [state.user]);
@@ -76,14 +76,14 @@ export default function Blog() {
               </div>
 
               <div>
-                <Link
-                  href="#"
+                <button
+                  type="button"
                   onClick={() => setModal(!modal)}
-                  className="h-8  w-auto inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-800/5 hover:bg-gray-800/10 dark:bg-gray-800 border border-gray-800/5 dark:border-gray-800 text-slate-900 dark:text-white rounded-full"
+                  className="h-8 cursor-pointer w-auto inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-800/5 hover:bg-gray-800/10 dark:bg-gray-800 border border-gray-800/5 dark:border-gray-800 text-slate-900 dark:text-white rounded-full"
                 >
                   <span className="text-[15px]">Agregar proyecto </span>
                   <Icon.Plus className="h-4 w-4" />
-                </Link>
+                </button>
               </div>
             </div>
 

@@ -1,17 +1,17 @@
 import { useAuthContext } from "@/context/auth-context";
 import { login } from "@/services/auth-services";
-import { AuthContextTypes, FormData } from "@/utils/types/types";
+import { AuthContextTypes, LoginFormData } from "@/utils/types/types";
 import Link from "next/link";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const initialState: FormData = {
+const initialState: LoginFormData = {
   email: '',
   password: ''
 }
 
 export const LoginFormComponent = () => {
-  const [ formData, setFormData ] = useState<FormData>(initialState);
+  const [ formData, setFormData ] = useState<LoginFormData>(initialState);
   const [ wantToRemember, setWantToRemember ] = useState<boolean>(false);
   const { dispatch} = useAuthContext()
 

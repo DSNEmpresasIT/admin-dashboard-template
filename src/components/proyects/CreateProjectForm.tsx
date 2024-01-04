@@ -75,7 +75,7 @@ export const CreateProjectForm = ({
           : undefined,
     };
 
-    createProject(state.user.clientName, state.token, form)
+    createProject(state.user.id, state.token, form)
       .then((response: Projects) => {
         setProjectsData([...projectsData, response]);
         setModal(!modal);
@@ -89,8 +89,8 @@ export const CreateProjectForm = ({
   }
 
   useEffect(() => {
-    if (state.user?.clientName?.length && state.token?.length) {
-      getProjectTypes(state.user.clientName, state.token)
+    if (state.user?.id?.length && state.token?.length) {
+      getProjectTypes(state.user.id, state.token)
         .then((response) => {
           setProjectTypes(response.project_types ?? null);
         })

@@ -33,7 +33,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         dispatch({
           type: AuthContextTypes.LOGIN,
           payload: {
-            clientName: response.user.clientName,
+            id: response.user.id,
             email: response.user.email,
             token: authToken,
             userName: response.user.userName
@@ -41,7 +41,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         });
                 
         setIsLoading(false);
-        toast.success('Logged!')
+        toast.success('Bienvenido!!')
       });
     } else {
       setIsLoading(false);

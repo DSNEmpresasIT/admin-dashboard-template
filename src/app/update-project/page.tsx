@@ -1,12 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Datepicker from "react-tailwindcss-datepicker";
 
-import { AiOutlineClose } from "react-icons/ai";
 
 import Sidebar from "@/components/commons/sidebar";
-import Topnav from "@/components/commons/topnav";
 import { useSearchParams } from "next/navigation";
 import { getProjectById, updateProject } from "@/services/projects-service";
 import { ImageUrl, ProjectFormData } from "@/utils/types/types";

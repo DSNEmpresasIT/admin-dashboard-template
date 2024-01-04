@@ -3,20 +3,20 @@ import axios from 'axios';
 
 const BASE_URL = process.env.ENVIROMENT === 'development' ? process.env.API_BASE_URL_DEVELOPMENT : process.env.API_BASE_URL_PRODUCTION;
 
-export async function getAllProjects(clientName: string) {
+export async function getAllProjects(clientId: string) {
   try {
-    const response = await axios.get(`${BASE_URL}/projects/client/${clientName}`);
+    const response = await axios.get(`${BASE_URL}/projects/${clientId}/client`);
     return response.data;
   } catch (error) {
     throw new Error()
   }
 }
 
-export async function createProject(clientName: string, token: string,formData: CreateProjectDto) {
+export async function createProject(clientId: string, token: string,formData: CreateProjectDto) {
   try {
     const response = await axios({
       method: 'POST',
-      baseURL: `${BASE_URL}/projects/create/${clientName}`,
+      baseURL: `${BASE_URL}/projects/create/${clientId}`,
       data: formData,
       headers: {
         'Authorization': `Bearer ${token}`       

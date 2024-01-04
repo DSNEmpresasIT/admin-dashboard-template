@@ -40,7 +40,6 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
                   alt=""
                 />
               </div>
-
               <div className="content p-6">
                 <Link
                   href={{

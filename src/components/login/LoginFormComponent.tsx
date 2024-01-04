@@ -42,7 +42,7 @@ export const LoginFormComponent = () => {
           type: AuthContextTypes.LOGIN,
           payload: {
             email: res.user.email,
-            clientName: res.user.clientName,
+            id: res.user.id,
             token: res.token,
             userName: res.user.userName
           }

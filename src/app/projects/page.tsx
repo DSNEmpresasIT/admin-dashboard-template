@@ -26,9 +26,9 @@ export default function Blog() {
   const { state } = useAuthContext();
 
   useEffect(() => {
-    if (state.user.clientName) {
-      getAllProjects(state.user.clientName.toLowerCase())
-      .then((response) => (setProjectsData(response.projects), console.log(response)))
+    if (state.user.id) {
+      getAllProjects(state.user.id)
+      .then((response) => setProjectsData(response.projects))
       .catch(() => toast.error('Ha ocurrido un error con la base de datos'));
     }
   }, [state.user]);

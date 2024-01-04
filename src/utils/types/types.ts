@@ -27,7 +27,7 @@ export enum AuthContextTypes {
 }
 
 export interface UserPayload {
-  clientName: string;
+  id: string;
   email: string;
   token?: string;
   userName: string;

@@ -9,7 +9,7 @@ const authContextInitialState: AuthContextState = {
   token: '',
   user: {
     email: '',
-    clientName: '',
+    id: '',
     userName: ''
   }
 }
@@ -21,7 +21,7 @@ const authReducer = (state: AuthContextState, action: AuthContextAction) => {
         isAuth: true,
         token: action.payload.token,
         user: {
-          clientName: action.payload.clientName,
+          id: action.payload.id,
           email: action.payload.email,
           userName: action.payload.userName
         }
@@ -31,7 +31,7 @@ const authReducer = (state: AuthContextState, action: AuthContextAction) => {
         isAuth: false,
         token: '',
         user: {
-          clientName: '',
+          id: '',
           email: '',
           userName: ''
         }

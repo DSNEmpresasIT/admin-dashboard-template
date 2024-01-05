@@ -80,6 +80,7 @@ export const CreateProjectForm = ({
         setProjectsData([...projectsData, response]);
         setModal(!modal);
         setIsLoading(false);
+        setFormData(initialState);
         toast.success("Publicacion creada correctamente.");
       })
       .catch((err) => {

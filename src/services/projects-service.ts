@@ -5,7 +5,7 @@ const BASE_URL = process.env.ENVIROMENT === 'development' ? process.env.API_BASE
 
 export async function getAllProjects(clientId: string) {
   try {
-    const response = await axios.get(`${BASE_URL}/projects/${clientId}/client`);
+    const response = await axios.get(`${BASE_URL}/projects/client/${clientId}`);
     return response.data;
   } catch (error) {
     throw new Error()

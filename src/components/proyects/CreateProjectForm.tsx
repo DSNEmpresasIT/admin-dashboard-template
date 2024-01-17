@@ -100,10 +100,10 @@ export const CreateProjectForm = ({
   }, [state]);
 
   return (
-    <div className="relative w-[85vw] h-full flex items-center justify-center pt-8">
+    <div className="relative max-w-[85vw] max-h-full flex mt-10 items-center justify-center pt-8 overflow-hidden">
       <LoaderComponent conditional={isLoading} />
       {!isLoading && (
-        <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg shadow dark:shadow-gray-700">
+        <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg overflow-y-scroll shadow dark:shadow-gray-700">
           <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
             <h5 className="text-xl font-semibold">Add blog or news</h5>
             <button

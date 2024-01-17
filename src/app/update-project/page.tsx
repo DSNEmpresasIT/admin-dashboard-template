@@ -32,6 +32,7 @@ const Page = () => {
     const requestBody = {
       ...formData,
       clientName: state.user.clientName,
+      clientId: state.token
     };
     updateProject(projectId, state.token, requestBody)
       .then(() => toast.success("Proyecto actualizado exitorsamente"))

@@ -21,6 +21,8 @@ export async function loginByToken(token: string) {
 
 export async function login(body: LoginFormData) {
   try {
+    console.log(BASE_URL)
+
     const response = await axios({
       baseURL: `${BASE_URL}/auth/login`,
       method: 'POST',

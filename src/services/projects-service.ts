@@ -40,7 +40,7 @@ export async function getProjectById(projectId: string) {
 
     return response.data;
   } catch (error) {
-    throw new Error(`Ha ocurrido un error: ${error.message}`) 
+    throw new Error(`Ha ocurrido un error: ${error.response.data.message}`) 
   }
 }
 
@@ -48,7 +48,7 @@ export async function updateProject(projectId: string, token: string, formData) 
   try {
     const response = await axios({
       method: 'PUT',
-      baseURL: `${BASE_URL}/projects/update/${projectId}`,
+      baseURL: `${BASE_URL}/projects/${projectId}`,
       data: formData,
       headers: {
         'Authorization': `Bearer ${token}`
@@ -57,6 +57,6 @@ export async function updateProject(projectId: string, token: string, formData) 
 
     return response;
   } catch (error) {
-    throw new Error(error.response.message)
+    throw new Error(error.response.data.message)
   }
 }

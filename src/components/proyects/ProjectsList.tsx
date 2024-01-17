@@ -34,9 +34,9 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
                   width={0}
                   height={0}
                   sizes="100vw"
+                  className="w-[100%] h-auto"
                   placeholder="blur"
                   blurDataURL={item.imageUrl[0].url}
-                  style={{ width: "100%", height: "auto" }}
                   alt=""
                 />
               </div>
@@ -50,12 +50,11 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
                 >
                   {item.title}
                 </Link>
-                <div className="flex w-full justify-between mt-3">
+                <div className="flex w-full flex-col justify-between mt-3">
                   <span className="text-gray-500 capitalize">{item.type}</span>
-                  <span className="text-gray-500">{item.project_date}</span>
+                  <span className="text-gray-500">{item.project_date && new Date(item.project_date).toLocaleDateString('en-us', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                 </div>
                 <p className="text-slate-400 mt-3 max-h-[50px] overflow-hidden whitespace-nowrap text-ellipsis">{item.description}</p>
-
                 <div className="mt-4">
                   <Link
                     href={{

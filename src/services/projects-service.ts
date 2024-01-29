@@ -48,7 +48,7 @@ export async function updateProject(projectId: string, token: string, formData) 
   try {
     const response = await axios({
       method: 'PUT',
-      baseURL: `${BASE_URL}/projects/update/${projectId}`,
+      baseURL: `${BASE_URL}/projects/${projectId}`,
       data: formData,
       headers: {
         'Authorization': `Bearer ${token}`
@@ -57,6 +57,7 @@ export async function updateProject(projectId: string, token: string, formData) 
 
     return response;
   } catch (error) {
+    console.log(error)
     throw new Error(error.response.message)
   }
 }

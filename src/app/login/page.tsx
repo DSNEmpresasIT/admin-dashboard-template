@@ -39,7 +39,7 @@ export default function AuthLogin() {
                   <LoginFormComponent />
                 </div>
                 <div className="text-center">
-                  <p className="mb-0 text-slate-400">
+                  {/* <p className="mb-0 text-slate-400">
                     © {new Date().getFullYear()} Techwind. Design & Develop with{" "}
                     <i className="mdi mdi-heart text-red-600"></i> by{" "}
                     <Link
@@ -50,13 +50,13 @@ export default function AuthLogin() {
                       Shreethemes
                     </Link>
                     .
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
 
             <div className="xl:w-[70%] lg:w-2/3 md:w-1/2 flex justify-center mx-6 md:my-auto my-20">
-              <div>
+              {/* <div>
                 <div className="relative">
                   <div className="absolute top-20 start-20 bg-indigo-600/[0.02] h-[1200px] w-[1200px] rounded-full"></div>
                   <div className="absolute bottom-20 -end-20 bg-indigo-600/[0.02] h-[600px] w-[600px] rounded-full"></div>
@@ -101,7 +101,7 @@ export default function AuthLogin() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

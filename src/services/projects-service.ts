@@ -40,7 +40,7 @@ export async function getProjectById(projectId: string) {
 
     return response.data;
   } catch (error) {
-    throw new Error(`Ha ocurrido un error: ${error.message}`) 
+    throw new Error(`Ha ocurrido un error: ${error.response.data.message}`) 
   }
 }
 

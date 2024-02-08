@@ -105,7 +105,7 @@ export const CreateProjectForm = ({
       {!isLoading && (
         <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg overflow-y-scroll shadow dark:shadow-gray-700">
           <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
-            <h5 className="text-xl font-semibold">Add blog or news</h5>
+            <h5 className="text-xl font-semibold">Crear proyecto</h5>
             <button
               type="button"
               onClick={() => setModal(!modal)}

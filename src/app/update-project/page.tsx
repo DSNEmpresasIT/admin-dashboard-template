@@ -6,11 +6,13 @@ import Datepicker from "react-tailwindcss-datepicker";
 import Sidebar from "@/components/commons/sidebar";
 import { useSearchParams } from "next/navigation";
 import { getProjectById, updateProject } from "@/services/projects-service";
-import { ImageUrl, ProjectFormData } from "@/utils/types/types";
+import { ImageUrl, ProjectFormData, ProjectTypesCMS } from "@/utils/types/types";
 import { ImageInputComponent } from "@/components/commons/ImageInputComponent";
 import { useAuthContext } from "@/context/auth-context";
 import toast from "react-hot-toast";
 import { LoaderComponent } from "@/components/commons/LoaderComponent";
+import { getProjectTypes } from "@/services/cms-services";
+
 
 const initialState: ProjectFormData = {
   title: "",
@@ -26,6 +28,7 @@ const Page = () => {
   const { state } = useAuthContext();
   const [toggle, setToggle] = useState(true);
   const [formData, setFormData] = useState<ProjectFormData>(initialState);
+  const [projectTypes, setProjectTypes] = useState<ProjectTypesCMS[]>();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +70,16 @@ const Page = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (state.user?.id?.length && state.token?.length) {
+      getProjectTypes(state.user.id, state.token)
+        .then((response) => {
+          setProjectTypes(response.project_types ?? null);
+        })
+        .catch((err) => console.log('No types founded'));
+    }
+  }, [state]);
 
   return (
     <div className={`page-wrapper  ${toggle ? "toggled" : ""}`}>
@@ -123,20 +136,27 @@ const Page = () => {
                       />
                     </div>
 
-                    {formData.type && (
+                    {projectTypes && (
                       <div className="col-span-6">
                         <label className="font-semibold">
-                          Tipo <span className="text-red-600">*</span>
+                          Tipo de proyecto
+                          <span className="text-red-600">*</span>
                         </label>
-                        <input
-                          name="type"
-                          id="type"
-                          type="text"
-                          onChange={handleInputChange}
-                          value={formData.type}
+                        <select
                           className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-                          placeholder="Title :"
-                        />
+                          value={formData.type}
+                          name="type"
+                          onChange={handleInputChange}
+                        >
+                          {projectTypes?.map((type) => (
+                            <option
+                              key={`${type.value}-option-project-type`}
+                              value={type.value}
+                            >
+                              {type.label}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     )}
 

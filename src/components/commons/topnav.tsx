@@ -253,7 +253,7 @@ export default function Topnav({ setToggle, toggle }) {
               >
                 <span className="h-8 w-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-full">
                   <Image
-                    src="/images/client/05.jpg"
+                    src="/images/client/placeholder.png"
                     width={30}
                     height={30}
                     className="rounded-full"
@@ -270,7 +270,7 @@ export default function Topnav({ setToggle, toggle }) {
                 }`}
               >
                 <ul className="py-2 text-start">
-                  <li>
+                  {/* <li>
                     <Link
                       href="/profile"
                       className="flex items-center font-medium py-1 px-4 dark:text-white/70 hover:text-indigo-600 dark:hover:text-white"
@@ -305,9 +305,9 @@ export default function Topnav({ setToggle, toggle }) {
                       <AiOutlineSetting className="me-2" />
                       Settings
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="border-t border-gray-100 dark:border-gray-800 my-2"></li>
-                  <li>
+                  {/* <li>
                     <Link
                       href="/lock-screen"
                       className="flex items-center font-medium py-1 px-4 dark:text-white/70 hover:text-indigo-600 dark:hover:text-white"
@@ -315,7 +315,7 @@ export default function Topnav({ setToggle, toggle }) {
                       <BiLockAlt className="me-2" />
                       Lockscreen
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       onClick={() => (handleLogout())}

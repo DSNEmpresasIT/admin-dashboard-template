@@ -137,7 +137,7 @@ export default function Chat(){
                     <div className="xl:col-span-3 lg:col-span-5 md:col-span-5">
                         <div className="rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                             <div className="text-center p-6 border-b border-gray-100 dark:border-gray-800">
-                                <Image src='/images/client/05.jpg' width={80} height={80} placeholder="blur" blurDataURL="/images/client/05.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt=""/>
+                                <Image src='/images/client/05.jpg' width={80} height={80} placeholder="blur" blurDataURL="/dashboard/images/client/05.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt=""/>
                                 <h5 className="mt-3 font-semibold text-xl mb-0">Cristina Julia</h5>
                                 <p className="text-slate-400 mb-0">UI / UX Designer</p>
                             </div>
@@ -170,7 +170,7 @@ export default function Chat(){
                         <div className="rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                             <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 p-4">
                                 <div className="flex">
-                                    <Image src='/images/client/12.jpg' width={44} height={44} placeholder="blur" blurDataURL="/images/client/12.jpg" className="h-11 w-11 rounded-full shadow dark:shadow-gray-700" alt=""/>
+                                    <Image src='/images/client/12.jpg' width={44} height={44} placeholder="blur" blurDataURL="/dashboard/images/client/12.jpg" className="h-11 w-11 rounded-full shadow dark:shadow-gray-700" alt=""/>
                                     <div className="overflow-hidden ms-3">
                                         <Link href="#" className="block font-semibold text-truncate">Calvin Carlo</Link>
                                         <span className="text-slate-400 flex items-center text-sm"><span className="bg-green-600 text-white text-[10px] font-bold rounded-full w-2 h-2 me-1"></span> Online</span>

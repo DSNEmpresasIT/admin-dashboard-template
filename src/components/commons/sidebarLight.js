@@ -29,8 +29,8 @@ export default function SidebarLight(){
             <div className=" sidebar-content">
                 <div className="sidebar-brand">
                     <Link href="/">
-                        <Image src='/images/logo-light.png' placeholder="blur" blurDataURL="/images/logo-light.png" width={138} height="24" alt="" className="hidden dark:block"/>
-                        <Image src='/images/logo-dark.png' placeholder="blur" blurDataURL="/images/logo-light.png" width={138} height="24" alt="" className="block dark:hidden"/>
+                        <Image src='/images/logo-light.png' placeholder="blur" blurDataURL="/dashboard/images/logo-light.png" width={138} height="24" alt="" className="hidden dark:block"/>
+                        <Image src='/images/logo-dark.png' placeholder="blur" blurDataURL="/dashboard/images/logo-light.png" width={138} height="24" alt="" className="block dark:hidden"/>
                         </Link>
                 </div>
             <SimpleBarReact style={{height:"calc(100% - 70px)"}}> 

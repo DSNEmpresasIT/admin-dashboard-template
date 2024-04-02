@@ -25,11 +25,11 @@ export default function AuthLogin() {
                 <div className="text-center">
                   <Link href="/">
                     <Image
-                      src="/images/logo-icon-64.png"
+                      src="/dashboard/images/logo-icon-64.png"
                       width={72}
                       height={64}
                       placeholder="blur"
-                      blurDataURL="/images/logo-icon-64.png"
+                      blurDataURL="/dashboard/images/logo-icon-64.png"
                       className="mx-auto"
                       alt=""
                     />
@@ -65,12 +65,12 @@ export default function AuthLogin() {
                 <div className="text-center">
                   <div>
                     <Image
-                      src="/images/contact.svg"
+                      src="/dashboard/images/contact.svg"
                       width={0}
                       height={0}
                       sizes="100vw"
                       placeholder="blur"
-                      blurDataURL="/images/contact.svg"
+                      blurDataURL="/dashboard/images/contact.svg"
                       style={{ width: "100%", height: "auto" }}
                       className="max-w-xl mx-auto"
                       alt=""

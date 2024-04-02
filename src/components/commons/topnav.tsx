@@ -253,7 +253,7 @@ export default function Topnav({ setToggle, toggle }) {
               >
                 <span className="h-8 w-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-full">
                   <Image
-                    src="/images/client/placeholder.png"
+                    src="/dashboard/images/client/placeholder.png"
                     width={30}
                     height={30}
                     className="rounded-full"

@@ -45,9 +45,9 @@ export default function Sidebar() {
         <div className="sidebar-brand">
           <Link href="/">
             <Image
-              src="/images/logo-icon-64.png"
+              src="/dashboard/images/logo-icon-64.png"
               placeholder="blur"
-              blurDataURL="/images/logo-light.png"
+              blurDataURL="/dashboard/images/logo-light.png"
               width={64}
               height="64"
               alt=""

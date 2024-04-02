@@ -33,7 +33,7 @@ export default function ProfileSetting(){
                     <div className="profile-banner relative text-transparent rounded-md shadow dark:shadow-gray-700 overflow-hidden">
                         <input id="pro-banner" name="profile-banner" type="file" className="hidden"/>
                         <div className="relative shrink-0">
-                            <Image src='/images/blog/bg.jpg' width={0} height={0} sizes="100vw" placeholder="blur" blurDataURL="/images/blog/bg.jpg" style={{width:"100%", height:"auto"}} className="h-80 w-full object-cover" id="profile-banner" alt=""/>
+                            <Image src='/images/blog/bg.jpg' width={0} height={0} sizes="100vw" placeholder="blur" blurDataURL="/dashboard/images/blog/bg.jpg" style={{width:"100%", height:"auto"}} className="h-80 w-full object-cover" id="profile-banner" alt=""/>
                             <div className="absolute inset-0 bg-black/70"></div>
                             <label className="absolute inset-0 cursor-pointer" htmlFor="pro-banner"></label>
                         </div>

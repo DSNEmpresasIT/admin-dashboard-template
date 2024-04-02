@@ -19,7 +19,7 @@ export default function Chat(){
             <div className="rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                 <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 p-4">
                     <div className="flex">
-                        <Image src='/images/client/01.jpg' height={44} width={44} placeholder="blur" blurDataURL="/images/client/01.jpg" className="h-11 w-11 rounded-full shadow dark:shadow-gray-700" alt=""/>
+                        <Image src='/images/client/01.jpg' height={44} width={44} placeholder="blur" blurDataURL="/dashboard/images/client/01.jpg" className="h-11 w-11 rounded-full shadow dark:shadow-gray-700" alt=""/>
                         <div className="overflow-hidden ms-3">
                             <Link href="#" className="block font-semibold text-truncate">Calvin Carlo</Link>
                             <span className="text-slate-400 flex items-center text-sm"><span className="bg-green-600 text-white text-[10px] font-bold rounded-full w-2 h-2 me-1"></span> Online</span>

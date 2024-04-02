@@ -32,7 +32,7 @@ export default function SidebarColored(){
         <nav className="sidebar-wrapper sidebar-colored">
             <div className=" sidebar-content">
                 <div className="sidebar-brand">
-                    <Link href="/"><Image src='/images/logo-light.png' placeholder="blur" blurDataURL="/images/logo-light.png" width={138} height="24" alt=""/></Link>
+                    <Link href="/"><Image src='/images/logo-light.png' placeholder="blur" blurDataURL="/dashboard/images/logo-light.png" width={138} height="24" alt=""/></Link>
                 </div>
             <SimpleBarReact style={{height:"calc(100% - 70px)"}}> 
                 <ul className="sidebar-menu border-t border-white/10">

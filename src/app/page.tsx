@@ -26,7 +26,6 @@ export default function Index() {
     document.documentElement.setAttribute("dir", "ltr");
     // document.documentElement.classList.add('light');
     // document.documentElement.classList.remove('dark');
-    router.push(PAGES_PATH.PROYECTS)
   }, []);
 
   const[toggle, setToggle] = useState(true)
@@ -34,7 +33,7 @@ export default function Index() {
   return (
     <div className={`page-wrapper  ${toggle ? "toggled" : ""}`}>
       <Sidebar/>
-      {/* <main className="page-content bg-gray-50 dark:bg-slate-800">
+      <main className="page-content bg-gray-50 dark:bg-slate-800">
         <Topnav toggle={toggle} setToggle={setToggle}/>
         <div className="container-fluid relative px-3">
             <div className="layout-specing">
@@ -49,15 +48,14 @@ export default function Index() {
                 
                   <div className="grid lg:grid-cols-12 grid-cols-1 mt-6 gap-6">
                       <Order/>
-                      <Chat/>
-                      <TopProduct/>
+                      <Order/>
                   </div> 
                
             </div>
         </div>
         <Footer/>
         <Switcher/>
-      </main> */}
+      </main>
     </div>
   )
 }

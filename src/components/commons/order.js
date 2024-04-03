@@ -61,7 +61,7 @@ export default function Order(){
     ]
     return(
         <>
-            <div className="xl:col-span-5 lg:col-span-12">
+            <div className="xl:col-span-6 lg:col-span-6">
                 <div className="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                     <div className="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
                         <h6 className="text-lg font-semibold">Orders</h6>

@@ -61,7 +61,7 @@ export default function Order(){
     ]
     return(
         <>
-            <div className="xl:col-span-6 lg:col-span-6">
+            <div className="xl:col-span-12 lg:col-span-12">
                 <div className="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                     <div className="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
                         <h6 className="text-lg font-semibold">Orders</h6>
@@ -73,24 +73,19 @@ export default function Order(){
                             <table className="w-full text-start">
                                 <thead className="text-base">
                                     <tr>
-                                        <th className="text-start font-semibold text-[15px] p-4 min-w-[100px]">No.</th>
                                         <th className="text-start font-semibold text-[15px] p-4 min-w-[128px]">ID</th>
                                         <th className="text-start font-semibold text-[15px] p-4 min-w-[128px]">Date</th>
-                                        <th className="text-start font-semibold text-[15px] p-4 min-w-[128px]">Price</th>
                                         <th className="text-end font-semibold text-[15px] p-4 min-w-[128px]">Status</th>
+                                        <th className="text-end font-semibold text-[15px] p-4 min-w-[128px]"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {orderData.map((item, index) => {
                                         return(
                                             <tr key={index}>
-                                                <th className="text-start border-t border-gray-100 dark:border-gray-800 p-4 font-semibold">{item.no}</th>
                                                 <td className="text-start border-t border-gray-100 dark:border-gray-800 p-4">{item.id}</td>
                                                 <td className="text-start border-t border-gray-100 dark:border-gray-800 p-4">
                                                     <span className="text-slate-400">{item.date}</span>
-                                                </td>
-                                                <td className="text-start border-t border-gray-100 dark:border-gray-800 p-4">
-                                                    <span className="text-slate-400">{item.price}</span>
                                                 </td>
                                                 <td className="text-end border-t border-gray-100 dark:border-gray-800 p-4">
                                                     {item.status === 'Delivered' ?   <span className="bg-emerald-600/10 dark:bg-emerald-600/20 border border-emerald-600/10 dark:border-emerald-600/20 text-emerald-600 text-[12px] font-bold px-2.5 py-0.5 rounded h-5 ms-1">{item.status}</span> : ''}

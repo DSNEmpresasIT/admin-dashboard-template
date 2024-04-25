@@ -49,12 +49,8 @@ export default function Blog() {
   }, []);
 
   return (
-    <div className={`page-wrapper  ${toggle ? "toggled" : ""}`}>
-      <Sidebar />
-      <main className="page-content bg-gray-50 dark:bg-slate-800">
-        <Topnav toggle={toggle} setToggle={setToggle} />
         <div className="container-fluid relative px-3">
-          <div className="layout-specing">
+          <div className="">
             <div className="md:flex justify-between items-center">
               <div>
                 <h5 className="text-lg font-semibold">Admin / Proyectos</h5>
@@ -89,7 +85,7 @@ export default function Blog() {
 
             <ProjectsList projectsData={projectsData} />
             <div
-              className={`fixed z-50 flex items-center justify-center overflow-hidden inset-0 m-auto bg-gray-900 bg-opacity-50 dark:bg-opacity-80 ${
+              className={`fixed z-[1000] flex items-center justify-center overflow-hidden inset-0 m-auto bg-gray-900 bg-opacity-50 dark:bg-opacity-80 ${
                 modal ? "" : "hidden"
               }`}
             >
@@ -166,9 +162,5 @@ export default function Blog() {
             </div> */}
           </div>
         </div>
-        <Footer />
-        {/* <Switcher /> */}
-      </main>
-    </div>
   );
 }

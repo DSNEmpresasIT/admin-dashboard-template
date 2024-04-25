@@ -10,7 +10,9 @@ const authContextInitialState: AuthContextState = {
   user: {
     email: '',
     id: '',
-    userName: ''
+    userName: '',
+    role: undefined,
+    companyId: 0
   }
 }
 
@@ -23,19 +25,13 @@ const authReducer = (state: AuthContextState, action: AuthContextAction) => {
         user: {
           id: action.payload.id,
           email: action.payload.email,
-          userName: action.payload.userName
+          userName: action.payload.userName,
+          role: action.payload.role,
+          companyId: action.payload.companyId
         }
       }
     case AuthContextTypes.LOGOUT:
-      return {
-        isAuth: false,
-        token: '',
-        user: {
-          id: '',
-          email: '',
-          userName: ''
-        }
-      }
+      return authContextInitialState;
     default:
       return state;
   }  

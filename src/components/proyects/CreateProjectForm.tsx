@@ -100,7 +100,7 @@ export const CreateProjectForm = ({
   }, [state]);
 
   return (
-    <div className="relative max-w-[85vw] max-h-full flex mt-10 items-center justify-center pt-8 overflow-hidden">
+    <div className="relative max-w-[85vw] max-h-full flex mt-10 items-center justify-center overflow-hidden">
       <LoaderComponent conditional={isLoading} />
       {!isLoading && (
         <div className="relative h-[85vh] bg-white dark:bg-slate-900 rounded-lg overflow-y-scroll shadow dark:shadow-gray-700">

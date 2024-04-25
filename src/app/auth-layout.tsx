@@ -8,12 +8,17 @@ import { AuthContextTypes } from "@/utils/types/types";
 import { loginByToken } from "@/services/auth-services";
 import toast from "react-hot-toast";
 import { LoaderComponent } from "@/components/commons/LoaderComponent";
+import Sidebar from "@/components/commons/sidebar";
+import Topnav from "@/components/commons/topnav";
+import Footer from "@/components/commons/footer";
 
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { state, dispatch } = useAuthContext();
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
+  
+  const { state, dispatch } = useAuthContext();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [ toggle, setToggle ] = useState(true);
 
   useEffect(() => {
     if (
@@ -36,7 +41,9 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             id: response.user.id,
             email: response.user.email,
             token: authToken,
-            userName: response.user.userName
+            userName: response.user.userName,
+            role: response.user.role,
+            companyId: response.user.companyId
           },
         });
                 
@@ -65,7 +72,17 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <LoaderComponent conditional={isLoading} className="w-screen h-screen flex items-center justify-center" />
-      { !isLoading && state.isAuth && (children) }
+      { !isLoading && state.isAuth && (
+
+        <div className={`page-wrapper  ${toggle ? "toggled" : ""}`}>
+          <Sidebar/>
+          <main className="page-content h-full pt-[10vh] bg-gray-50 dark:bg-slate-800">
+            <Topnav toggle={toggle} setToggle={setToggle}/>
+                {children}
+            <Footer/>
+          </main>
+        </div>
+      )}
       { !isLoading && !state.isAuth && (<AuthLogin />) }
     </>
   );

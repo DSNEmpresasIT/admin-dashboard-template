@@ -43,6 +43,8 @@ export const LoginFormComponent = () => {
           payload: {
             email: res.user.email,
             id: res.user.id,
+            role: res.user.role,
+            companyId: res.user.companyId,
             token: res.token,
             userName: res.user.userName
           }

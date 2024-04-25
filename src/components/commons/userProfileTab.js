@@ -38,59 +38,6 @@ export default function UserProfileTab(){
                         </div>
                     </div>
                 </div>
-
-                <div className="border-t border-gray-100 dark:border-gray-700">
-                    <ul className="list-none sidebar-nav mb-0 mt-3" id="navmenu-nav">
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile" className={`${pathname === '/profile' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><AiOutlineDashboard/></span>
-                                <h6 className="mb-0 font-semibold">Profile</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile-billing" className={`${pathname === '/profile-billing' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><TbNotebook/></span>
-                                <h6 className="mb-0 font-semibold">Billing Info</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile-payment" className={`${pathname === '/profile-payment' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><AiOutlineCreditCard/></span>
-                                <h6 className="mb-0 font-semibold">Payment</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile-social" className={`${pathname === '/profile-social' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><FaRecycle/></span>
-                                <h6 className="mb-0 font-semibold">Social Profile</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile-notification" className={`${pathname === '/profile-notification' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><LuBellRing/></span>
-                                <h6 className="mb-0 font-semibold">Notifications</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/profile-setting" className={`${pathname === '/profile-setting' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><BiCog/></span>
-                                <h6 className="mb-0 font-semibold">Settings</h6>
-                            </Link>
-                        </li>
-
-                        <li className="navbar-item account-menu">
-                            <Link href="/auth-lock-screen" className={`${pathname === '/auth-lock-screen' ? 'text-indigo-600 dark:text-white' : 'text-slate-400'} navbar-link  flex items-center py-2 rounded hover:text-indigo-600`}>
-                                <span className="me-2 text-[18px] mb-0"><CgLogOff/></span>
-                                <h6 className="mb-0 font-semibold">Sign Out</h6>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
         </>

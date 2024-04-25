@@ -1,3 +1,7 @@
+export enum Roles {
+  ADMIN = 'dsn_access_admin',
+}
+
 export interface Projects {
   _id: string;
   clientName: string;
@@ -31,6 +35,8 @@ export interface UserPayload {
   email: string;
   token?: string;
   userName: string;
+  role: Roles;
+  companyId: number;
 }
  
 export interface AuthContextState {
@@ -57,4 +63,29 @@ export interface ProjectFormData {
   projectClient: string;
   type: string | undefined;
   imageUrl: string[] | null[] | ImageUrl[];
+}
+
+export interface UserTableInterface {
+  logo: string;
+  userName: string;
+  role: Roles;
+  status: boolean;
+  company: {
+    id: number;
+    companyName: string;
+  }
+}
+
+export interface CompanyTableInterface {
+  logo: string;
+  companyName: string;
+  users: number;
+  microsites: boolean;
+  projects: number;
+}
+
+export interface RoleData {
+  id: number;
+  name: string;
+  key: string;
 }

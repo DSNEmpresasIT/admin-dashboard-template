@@ -30,13 +30,13 @@ export const ProjectsList = ({ projectsData }: ProjectsListProps) => {
             >
               <div className="max-h-[200px] rounded-md overflow-hidden">
                 <Image
-                  src={item.imageUrl[0].url}
+                  src={item.imageUrl && item.imageUrl[0]?.url}
                   width={0}
                   height={0}
                   sizes="100vw"
                   className="w-[100%] h-auto"
                   placeholder="blur"
-                  blurDataURL={item.imageUrl[0].url}
+                  blurDataURL={item.imageUrl ? item.imageUrl[0]?.url : '/images/error.png'}
                   alt=""
                 />
               </div>

@@ -6,7 +6,7 @@ import React, { SetStateAction } from "react";
 interface ImageInputComponentProps {
   formData: ProjectFormData;
   setFormData: React.Dispatch<SetStateAction<any>>,
-  index: number
+  index?: number
 }
 
 export const ImageInputComponent:React.FC<ImageInputComponentProps> = ({ formData, setFormData, index }) => {

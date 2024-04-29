@@ -3,6 +3,9 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { FirstStepComponent } from './FirstStepComponent';
 import { SecondStepComponent } from './SecondStepComponent';
 import { ThirdStepComponent } from './ThirdStepComponent';
+import { ForthStepComponent } from './ForthStepComponent';
+import { FifthStepComponent } from './FifthStepComponent';
+import toast from 'react-hot-toast';
 
 interface CreateCompanyFormProps {
   modal: boolean;
@@ -11,10 +14,18 @@ interface CreateCompanyFormProps {
 
 interface CreateCompanyFormData {
   company_name: string;
+  logo?: string;
   cloudinary?: {
     cloud_name: string;
     api_key: string;
     api_secret: string;
+  },
+  email?: {
+    host?: string;
+    user?: string;
+    password?: string;
+    port?: number;
+    email?: string;
   },
   contact_info?: {
     phone?: string;
@@ -53,6 +64,16 @@ export const CreateCompanyForm = ({ modal, setModal }: CreateCompanyFormProps) =
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (
+        !formData.email?.host ||
+        !formData.email?.user ||
+        !formData.email?.password ||
+        !formData.email?.port ||
+        !formData.email?.email
+      ) {
+        return toast.error('Los campos que contienen * son obligatorios')
+      }
+
     console.log(formData)
   }
 
@@ -78,7 +99,9 @@ export const CreateCompanyForm = ({ modal, setModal }: CreateCompanyFormProps) =
             <form className="mt-4" onSubmit={handleSubmit}>
                 { step === 1 && ( <FirstStepComponent nextStep={nextStep} setFormData={setFormData} formData={formData} /> ) }
                 { step === 2 && ( <SecondStepComponent nextStep={nextStep} prevStep={prevStep} setFormData={setFormData} formData={formData} /> ) }
-                { step === 3 && ( <ThirdStepComponent  prevStep={prevStep} setFormData={setFormData} formData={formData} />) }
+                { step === 3 && ( <ThirdStepComponent  prevStep={prevStep} setFormData={setFormData} formData={formData} nextStep={nextStep} />) }
+                {step === 4 && ( <ForthStepComponent prevStep={prevStep} setFormData={setFormData} formData={formData} nextStep={nextStep} />)}
+                { step === 5 && ( <FifthStepComponent formData={formData} prevStep={prevStep} setFormData={setFormData} /> ) }
             </form>
           </div>
         </div>

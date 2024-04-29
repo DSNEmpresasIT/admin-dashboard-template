@@ -1,23 +1,31 @@
 import React from 'react'
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'
 
-export const ThirdStepComponent = ({ prevStep, setFormData, formData, nextStep }) => {
-  
+export const ForthStepComponent = ({ nextStep, prevStep , setFormData, formData }) => {
+
   function handleInputChange(e) {
     setFormData({
       ...formData,
-      contact_info: {
-        ...formData.contact_info,
+      cloudinary: {
+        ...formData.cloudinary,
         [e.target.name]: e.target.value
       }
     })
   }
 
+  function handleJump() {
+    setFormData({
+      ...formData,
+      cloudinary: undefined
+    })
+
+    nextStep()
+  }
 
   function handleNextStep() {
-    const { contact_info  } = formData;
-    if (!contact_info?.phone || !contact_info?.address || !contact_info?.whatssap || !contact_info?.embed_google_map) {
-      return toast.error('Los campos que poseen * son obligatorios')
+    if (!formData.cloudinary?.cloud_name || !formData.cloudinary?.api_key || !formData.cloudinary?.api_secret ) {
+
+      return toast.error('Los campos que contienen * son obligatorios');
     }
 
     nextStep()
@@ -27,58 +35,54 @@ export const ThirdStepComponent = ({ prevStep, setFormData, formData, nextStep }
     <div className="grid grid-cols-12 gap-3">
       <div className="col-span-12">
         <label className="font-semibold">
-          Teléfono <span className="text-red-600">*</span>
+          Cloud name <span className="text-red-600">*</span>
         </label>
         <input
           onChange={handleInputChange}
-          name="phone"
-          value={formData.contact_info?.phone}
+          name="cloud_name"
+          value={formData.cloudinary?.cloud_name}
           type="text"
           className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="Ejemplo: DSN Empresas"
+          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
         />
       </div>
 
       <div className="col-span-12">
         <label className="font-semibold">
-          Dirección <span className="text-red-600">*</span>
+          API Key <span className="text-red-600">*</span>
         </label>
         <input
           onChange={handleInputChange}
-          name="address"
-          value={formData.contact_info?.address}
+          name="api_key"
+          value={formData.cloudinary?.api_key}
           type="text"
           className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="Ejemplo: DSN Empresas"
+          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
         />
       </div>
 
       <div className="col-span-12">
         <label className="font-semibold">
-          Whatssap<span className="text-red-600">*</span>
+          API Secret <span className="text-red-600">*</span>
         </label>
         <input
           onChange={handleInputChange}
-          name="whatssap"
-          value={formData.contact_info?.whatssap}
+          name="api_secret"
+          value={formData.cloudinary?.api_secret}
           type="text"
           className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="Ejemplo: DSN Empresas"
+          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
         />
       </div>
 
-      <div className="col-span-12">
-        <label className="font-semibold">
-          Google Map URL <span className="text-red-600">*</span>
-        </label>
-        <input
-          onChange={handleInputChange}
-          name="embed_google_map"
-          value={formData.contact_info?.embed_google_map}
-          type="text"
-          className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="Ejemplo: DSN Empresas"
-        />
+      <div className='mt-5 col-span-12 flex justify-end'>
+        <button
+            onClick={handleJump}
+            type="button"
+            className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md"
+          >
+            No tengo cloudinary (Saltar)
+          </button>
       </div>
 
       <div className="mt-5 col-span-12 flex justify-between">

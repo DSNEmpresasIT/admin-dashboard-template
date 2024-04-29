@@ -1,78 +1,82 @@
+import { ImageInputComponent } from '@/components/commons/ImageInputComponent'
+import { encodeImageToBase64 } from '@/utils/helpers/encodeImageToBase64';
+import Image from 'next/image'
 import React from 'react'
+import toast from 'react-hot-toast';
 
 export const SecondStepComponent = ({ nextStep, prevStep , setFormData, formData }) => {
 
-  function handleInputChange(e) {
-    setFormData({
-      ...formData,
-      cloudinary: {
-        [e.target.name]: e.target.value
-      }
-    })
+  function handleChangeImage(event) {
+    if (event.target.files && event.target.files.length !== 0) {
+      encodeImageToBase64(event.target.files[0], (base64: string) => {
+        setFormData({
+          ...formData,
+          [event.target.name]: base64,
+        });
+      });
+    }
   }
 
-  function handleJump() {
-    setFormData({
-      ...formData,
-      cloudinary: undefined
-    })
+  function handleNextStep() {
+    if (!formData.logo) {
 
-    nextStep()
+      return toast.error('Los campos que contienen * son obligatorios');
+    }
+
+    nextStep();
   }
 
   return (
     <div className="grid grid-cols-12 gap-3">
       <div className="col-span-12">
         <label className="font-semibold">
-          Cloud name <span className="text-red-600">*</span>
+          Ingresar foto de perfil <span className="text-red-600">*</span>
         </label>
-        <input
-          onChange={handleInputChange}
-          name="cloud_name"
-          value={formData.cloudinary?.cloud_name}
-          type="text"
-          className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
-        />
-      </div>
+        <div>
+          {formData.logo ? (
+            <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto overflow-hidden ">
+              <div className=' h-[250px] w-[250px] overflow-hidden rounded-full'>
+                <Image
+                  //@ts-ignore
+                  src={formData.logo}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: "380px", height: "auto" }}
+                  alt=""
+                  className="preview-content"
+                />
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="font-semibold mb-4">
+                Suba una imagen para su projecto <br /> haciendo click en el botón "Subir Imagen"
+              </p>
+              <div className="preview-box flex justify-center rounded-md shadow dark:shadow-gray-800 overflow-hidden bg-gray-50 dark:bg-slate-800 text-slate-400 p-2 text-center small w-auto max-h-60">
+                Soporta JPG y PNG
+              </div>
+            </>
+          )}
 
-      <div className="col-span-12">
-        <label className="font-semibold">
-          API Key <span className="text-red-600">*</span>
-        </label>
-        <input
-          onChange={handleInputChange}
-          name="api_key"
-          value={formData.cloudinary?.api_key}
-          type="text"
-          className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
-        />
-      </div>
-
-      <div className="col-span-12">
-        <label className="font-semibold">
-          API Secret <span className="text-red-600">*</span>
-        </label>
-        <input
-          onChange={handleInputChange}
-          name="api_secret"
-          value={formData.cloudinary?.api_secret}
-          type="text"
-          className="form-input w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-indigo-600 dark:border-gray-800 dark:focus:border-indigo-600 focus:ring-0 mt-2"
-          placeholder="XXXXXX-XXXXX-XXXXXXXXXX"
-        />
-      </div>
-
-      <div className='mt-5 col-span-12 flex justify-end'>
-        <button
-            onClick={handleJump}
-            type="button"
-            className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md"
+          <input
+            type="file"
+            id={`input-file-company`}
+            name={`logo`}
+            accept="image/*"
+            hidden
+            onChange={(e) => handleChangeImage(e)}
+          />
+          <label
+            className="btn-upload py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6 cursor-pointer"
+            htmlFor={`input-file-company`}
           >
-            No tengo cloudinary (Saltar)
-          </button>
+            Subir Imagen
+          </label>
+        </div>
       </div>
+
+      
 
       <div className="mt-5 col-span-12 flex justify-between">
           <button
@@ -83,8 +87,8 @@ export const SecondStepComponent = ({ nextStep, prevStep , setFormData, formData
             Atras
           </button>
           <button
-            onClick={() => nextStep()}
-            type="submit"
+            onClick={handleNextStep}
+            type="button"
             className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md"
           >
             Siguiente

@@ -27,7 +27,7 @@ const Page = () => {
   }, [])
 
   return (
-    <div className='px-3'>
+    <div className='p-3'>
       <div className="md:flex justify-between items-center">
         <div>
           <h5 className="text-lg font-semibold">Admin / Listado de companías</h5>

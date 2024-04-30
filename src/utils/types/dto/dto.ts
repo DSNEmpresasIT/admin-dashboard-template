@@ -10,3 +10,12 @@ export interface CreateProjectDto {
 }
 
 export interface UpdateProjectDto extends CreateProjectDto {}
+
+export interface CompanyDto {
+  id: number,
+  company_name: string,
+  logo: string,
+  users: object[],
+  projects: object[],
+  microsite?: object[]
+}

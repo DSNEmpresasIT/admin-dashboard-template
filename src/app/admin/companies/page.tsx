@@ -1,10 +1,10 @@
 'use client'
-import { CreateCompanyForm } from '@/components/admin/companies/CreateCompanyForm';
 import CompanyTable from '@/components/commons/CompanyTable';
 import Footer from '@/components/commons/footer';
 import Sidebar from '@/components/commons/sidebar';
 import Switcher from '@/components/commons/switcher';
 import Topnav from '@/components/commons/topnav';
+import { CreateCompanyForm } from '@/components/home/admin/CreateCompanyForm';
 import { useAuthContext } from '@/context/auth-context';
 import { AuthContextState, Roles } from '@/utils/types/types';
 import Link from 'next/link';
@@ -59,7 +59,7 @@ const Page = () => {
           </button>
         </div>
       </div>
-      <CompanyTable className='mt-5' />
+      {/* <CompanyTable className='mt-5' /> */}
       <CreateCompanyForm modal={modal} setModal={setModal} />
     </div>
   )

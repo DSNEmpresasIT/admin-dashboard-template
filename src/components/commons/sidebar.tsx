@@ -119,7 +119,7 @@ export default function Sidebar() {
                       [`${linkData.link}`].includes(manu) ? "active" : ""
                     }`}
                   >
-                    <Link href={`/admin/${linkData.link}`}>
+                    <Link href={`${linkData.link}`}>
                       <linkData.icon className=" me-3 icon " />
                       {linkData.name}
                     </Link>

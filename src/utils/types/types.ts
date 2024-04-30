@@ -76,14 +76,6 @@ export interface UserTableInterface {
   }
 }
 
-export interface CompanyTableInterface {
-  logo: string;
-  companyName: string;
-  users: number;
-  microsites: boolean;
-  projects: number;
-}
-
 export interface RoleData {
   id: number;
   name: string;

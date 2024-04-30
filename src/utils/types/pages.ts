@@ -18,7 +18,7 @@ export enum PAGES_PATH {
   PRODUCTS = 'products', 
   LOGIN = 'login',
   ADMIN_ROLES = 'roles',
-  ADMIN_COMPANIES = 'companies',
-  ADMIN_USERS = 'users',
-  ADMIN_MICROSITES = 'microsites'
+  ADMIN_COMPANIES = '/admin/companies',
+  ADMIN_USERS = '/admin/users',
+  ADMIN_MICROSITES = '/admin/microsites',
 }

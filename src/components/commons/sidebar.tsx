@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import SimpleBarReact from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 import { AiOutlineHome, AiOutlineShoppingCart } from "react-icons/ai";
 import { PiBrowsersBold } from "react-icons/pi";
@@ -37,6 +38,11 @@ export const publicPaths = [
     link: PAGES_PATH.PROYECTS,
     icon: PiBrowsersBold
   },
+  {
+    name: PAGES.INFORMACION_CORPORATIVA,
+    link: PAGES_PATH.INFORMACION_CORPORATIVA,
+    icon: IoMdInformationCircleOutline,
+  }
 ];
 
 export const adminPaths = [
